@@ -1,0 +1,2018 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20221220 12:36:24.911" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="D:\RoboCorp Task\MVDA BOT\tasks.robot">
+<test id="s1-t1" name="MVDA Steps" line="36">
+<try>
+<branch type="TRY">
+<kw name="Get Study Number">
+<var>${studyNumberList}</var>
+<arg>${attachmentFilePath}</arg>
+<kw name="Get Current Date" library="DateTime">
+<var>${time}</var>
+<arg>result_format=%d%m%Y</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<msg timestamp="20221220 12:36:29.734" level="INFO">${time} = 20122022</msg>
+<status status="PASS" starttime="20221220 12:36:29.733" endtime="20221220 12:36:29.737"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${fileName}</var>
+<arg>${attachmentFilePath}/MVDA Input - ${time}.xlsx</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20221220 12:36:29.738" level="INFO">${fileName} = D:/RoboCorp Task/MVDA BOT/Input File/MVDA Input - 20122022.xlsx</msg>
+<status status="PASS" starttime="20221220 12:36:29.737" endtime="20221220 12:36:29.738"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${fileName}</arg>
+<arg>${fileName} is not found</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:29.739" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\MVDA BOT\Input File\MVDA Input - 20122022.xlsx"&gt;D:\RoboCorp Task\MVDA BOT\Input File\MVDA Input - 20122022.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:29.738" endtime="20221220 12:36:29.739"/>
+</kw>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${fileName}</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:29.749" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C1A7070&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:29.740" endtime="20221220 12:36:29.749"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:29.750" level="INFO">Created table: Table(columns=['A', 'B'], rows=3)</msg>
+<msg timestamp="20221220 12:36:29.750" level="INFO">${data} = Table(columns=['A', 'B'], rows=3)</msg>
+<status status="PASS" starttime="20221220 12:36:29.749" endtime="20221220 12:36:29.750"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:29.751" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C1A7070&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:29.750" endtime="20221220 12:36:29.751"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:29.752" level="INFO">${headers} = ['Study Number', 'Priority']</msg>
+<status status="PASS" starttime="20221220 12:36:29.751" endtime="20221220 12:36:29.752"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${headers}[0]</arg>
+<arg>Study Number</arg>
+<arg>Business Exception :Column A is invalid in Attachment file</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20221220 12:36:29.752" endtime="20221220 12:36:29.753"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${headers}[1]</arg>
+<arg>Priority</arg>
+<arg>Business Exception :Column B is invalid in Attachment file</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20221220 12:36:29.753" endtime="20221220 12:36:29.753"/>
+</kw>
+<kw name="Pop Table Row" library="RPA.Tables">
+<arg>${data}</arg>
+<doc>Remove row from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:29.753" endtime="20221220 12:36:29.754"/>
+</kw>
+<kw name="Sort Table By Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>1</arg>
+<doc>Sort a table in-place according to ``column``.</doc>
+<status status="PASS" starttime="20221220 12:36:29.754" endtime="20221220 12:36:29.754"/>
+</kw>
+<kw name="Get Table Column" library="RPA.Tables">
+<var>${studyNumbersList}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<doc>Get all values for a single column in a table.</doc>
+<msg timestamp="20221220 12:36:29.755" level="INFO">${studyNumbersList} = ['BXU123_1', 'BXU123']</msg>
+<status status="PASS" starttime="20221220 12:36:29.754" endtime="20221220 12:36:29.755"/>
+</kw>
+<kw name="Should Not Be Empty" library="BuiltIn">
+<arg>${studyNumbersList}</arg>
+<arg>Business Exception : Attachment file named MVDA Input - ${time}.xlsx has No Study Number</arg>
+<doc>Verifies that the given item is not empty.</doc>
+<msg timestamp="20221220 12:36:29.756" level="INFO">Length is 2</msg>
+<status status="PASS" starttime="20221220 12:36:29.755" endtime="20221220 12:36:29.756"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${studyNumbersList}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20221220 12:36:29.756" endtime="20221220 12:36:29.757"/>
+</kw>
+<return>
+<value>${studyNumbersList}</value>
+<status status="PASS" starttime="20221220 12:36:29.757" endtime="20221220 12:36:29.757"/>
+</return>
+<msg timestamp="20221220 12:36:29.758" level="INFO">${studyNumberList} = ['BXU123_1', 'BXU123']</msg>
+<status status="PASS" starttime="20221220 12:36:29.733" endtime="20221220 12:36:29.758"/>
+</kw>
+<for flavor="IN">
+<var>${studyNumber}</var>
+<value>@{studyNumberList}</value>
+<iter>
+<var name="${studyNumber}">BXU123_1</var>
+<try>
+<branch type="TRY">
+<kw name="Check Input Files in Input Folder">
+<var>${sheetList}</var>
+<arg>${studyNumber}</arg>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}</arg>
+<arg>Business Exception : Study Number: ${std}: Folder not found</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:29.760" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123_1"&gt;D:\RoboCorp Task\Input Folder\BXU123_1&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:29.759" endtime="20221220 12:36:29.760"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}/*Matched*.xlsx</arg>
+<arg>Business Exception : Study Number: ${std} : Matched_DOE.xlsx File is not Exist</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:29.762" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123_1\*Matched*.xlsx"&gt;D:\RoboCorp Task\Input Folder\BXU123_1\*Matched*.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:29.761" endtime="20221220 12:36:29.763"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}/*Mastered_Centered*.xlsx</arg>
+<arg>Business Exception : Study Number: ${std} :Mastered_Centered.xlsx File is not Exist</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:29.766" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123_1\*Mastered_Centered*.xlsx"&gt;D:\RoboCorp Task\Input Folder\BXU123_1\*Mastered_Centered*.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:29.764" endtime="20221220 12:36:29.766"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}/*Minion_DOE*.xlsx</arg>
+<arg>Business Exception : Study Number: ${std} : Minion_DOE.xlsx File is not Exist</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:29.769" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123_1\*Minion_DOE*.xlsx"&gt;D:\RoboCorp Task\Input Folder\BXU123_1\*Minion_DOE*.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:29.767" endtime="20221220 12:36:29.770"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{Sheets}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20221220 12:36:29.771" level="INFO">@{Sheets} = [ ]</msg>
+<status status="PASS" starttime="20221220 12:36:29.771" endtime="20221220 12:36:29.771"/>
+</kw>
+<kw name="Find Files" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${inputFileFolderPath}/${std}/*Mastered_Centered*.xlsx</arg>
+<doc>Find files recursively according to a pattern.</doc>
+<msg timestamp="20221220 12:36:29.778" level="INFO">${Mastered} = [File(path='D:\\RoboCorp Task\\Input Folder\\BXU123_1\\078_Mastered_Centered.xlsx', name='078_Mastered_Centered.xlsx', size=162430, mtime=1671090611.5552435)]</msg>
+<status status="PASS" starttime="20221220 12:36:29.772" endtime="20221220 12:36:29.779"/>
+</kw>
+<kw name="Validate">
+<var>${Sheet}</var>
+<arg>${std}</arg>
+<arg>${Mastered}[0][0]</arg>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${WorkBook}</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:30.092" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C1DEBE0&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:29.781" endtime="20221220 12:36:30.092"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:30.132" level="INFO">Created table: Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=638)</msg>
+<msg timestamp="20221220 12:36:30.133" level="INFO">${data} = Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=638)</msg>
+<status status="PASS" starttime="20221220 12:36:30.092" endtime="20221220 12:36:30.133"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:30.135" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C1DEBE0&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.134" endtime="20221220 12:36:30.135"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>A</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:30.135" endtime="20221220 12:36:30.136"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>B</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:30.136" endtime="20221220 12:36:30.137"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:30.138" level="INFO">${headers} = ['VID_1', 'VID_2', 'VID_3', 'VID_4', 'VID_6', 'VID_7', 'VID_8', 'VID_9', 'VID_10', 'VID_11', 'VID_12', 'VID_13', 'VID_15', 'VID_16', 'VID_17', 'VID_24', 'VID_28', 'VID_29', 'VID_30', 'VID_31', 'VID_32...</msg>
+<status status="PASS" starttime="20221220 12:36:30.137" endtime="20221220 12:36:30.138"/>
+</kw>
+<kw name="Get File Stem" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${WorkBook}</arg>
+<doc>Returns the name of the file without its extension.</doc>
+<msg timestamp="20221220 12:36:30.138" level="INFO">${Mastered} = 078_Mastered_Centered</msg>
+<status status="PASS" starttime="20221220 12:36:30.138" endtime="20221220 12:36:30.139"/>
+</kw>
+<for flavor="IN">
+<var>${col}</var>
+<value>@{headers}</value>
+<iter>
+<var name="${col}">VID_1</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.139" endtime="20221220 12:36:30.140"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.139" endtime="20221220 12:36:30.140"/>
+</iter>
+<iter>
+<var name="${col}">VID_2</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.140" endtime="20221220 12:36:30.141"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.140" endtime="20221220 12:36:30.141"/>
+</iter>
+<iter>
+<var name="${col}">VID_3</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.141" endtime="20221220 12:36:30.141"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.141" endtime="20221220 12:36:30.142"/>
+</iter>
+<iter>
+<var name="${col}">VID_4</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.142" endtime="20221220 12:36:30.142"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.142" endtime="20221220 12:36:30.143"/>
+</iter>
+<iter>
+<var name="${col}">VID_6</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.143" endtime="20221220 12:36:30.143"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.143" endtime="20221220 12:36:30.143"/>
+</iter>
+<iter>
+<var name="${col}">VID_7</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.144" endtime="20221220 12:36:30.144"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.144" endtime="20221220 12:36:30.144"/>
+</iter>
+<iter>
+<var name="${col}">VID_8</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.145" endtime="20221220 12:36:30.145"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.145" endtime="20221220 12:36:30.145"/>
+</iter>
+<iter>
+<var name="${col}">VID_9</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.146" endtime="20221220 12:36:30.146"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.146" endtime="20221220 12:36:30.146"/>
+</iter>
+<iter>
+<var name="${col}">VID_10</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.147" endtime="20221220 12:36:30.148"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.146" endtime="20221220 12:36:30.148"/>
+</iter>
+<iter>
+<var name="${col}">VID_11</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.148" endtime="20221220 12:36:30.149"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.148" endtime="20221220 12:36:30.149"/>
+</iter>
+<iter>
+<var name="${col}">VID_12</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.149" endtime="20221220 12:36:30.150"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.149" endtime="20221220 12:36:30.150"/>
+</iter>
+<iter>
+<var name="${col}">VID_13</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.150" endtime="20221220 12:36:30.152"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.150" endtime="20221220 12:36:30.152"/>
+</iter>
+<iter>
+<var name="${col}">VID_15</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.152" endtime="20221220 12:36:30.153"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.152" endtime="20221220 12:36:30.153"/>
+</iter>
+<iter>
+<var name="${col}">VID_16</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.153" endtime="20221220 12:36:30.154"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.153" endtime="20221220 12:36:30.154"/>
+</iter>
+<iter>
+<var name="${col}">VID_17</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.154" endtime="20221220 12:36:30.154"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.154" endtime="20221220 12:36:30.155"/>
+</iter>
+<iter>
+<var name="${col}">VID_24</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.155" endtime="20221220 12:36:30.155"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.155" endtime="20221220 12:36:30.156"/>
+</iter>
+<iter>
+<var name="${col}">VID_28</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.156" endtime="20221220 12:36:30.156"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.156" endtime="20221220 12:36:30.156"/>
+</iter>
+<iter>
+<var name="${col}">VID_29</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.157" endtime="20221220 12:36:30.157"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.157" endtime="20221220 12:36:30.157"/>
+</iter>
+<iter>
+<var name="${col}">VID_30</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.158" endtime="20221220 12:36:30.158"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.158" endtime="20221220 12:36:30.158"/>
+</iter>
+<iter>
+<var name="${col}">VID_31</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.159" endtime="20221220 12:36:30.159"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.158" endtime="20221220 12:36:30.159"/>
+</iter>
+<iter>
+<var name="${col}">VID_32</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.160" endtime="20221220 12:36:30.160"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.159" endtime="20221220 12:36:30.160"/>
+</iter>
+<iter>
+<var name="${col}">VID_33</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.161" endtime="20221220 12:36:30.161"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.160" endtime="20221220 12:36:30.161"/>
+</iter>
+<iter>
+<var name="${col}">VID_34</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.162" endtime="20221220 12:36:30.162"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.161" endtime="20221220 12:36:30.162"/>
+</iter>
+<iter>
+<var name="${col}">VID_35</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.163" endtime="20221220 12:36:30.163"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.162" endtime="20221220 12:36:30.163"/>
+</iter>
+<iter>
+<var name="${col}">VID_36</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.164" endtime="20221220 12:36:30.164"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.163" endtime="20221220 12:36:30.164"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:30.139" endtime="20221220 12:36:30.164"/>
+</for>
+<return>
+<value>${Mastered}</value>
+<status status="PASS" starttime="20221220 12:36:30.164" endtime="20221220 12:36:30.165"/>
+</return>
+<msg timestamp="20221220 12:36:30.165" level="INFO">${Sheet} = 078_Mastered_Centered</msg>
+<status status="PASS" starttime="20221220 12:36:29.779" endtime="20221220 12:36:30.165"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${Sheets}</arg>
+<arg>${Sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:30.165" endtime="20221220 12:36:30.166"/>
+</kw>
+<kw name="Find Files" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${inputFileFolderPath}/${std}/*Minion_DOE*.xlsx</arg>
+<doc>Find files recursively according to a pattern.</doc>
+<msg timestamp="20221220 12:36:30.169" level="INFO">${Mastered} = [File(path='D:\\RoboCorp Task\\Input Folder\\BXU123_1\\078_Minion_DOE.xlsx', name='078_Minion_DOE.xlsx', size=149332, mtime=1671090621.3975048)]</msg>
+<status status="PASS" starttime="20221220 12:36:30.166" endtime="20221220 12:36:30.169"/>
+</kw>
+<kw name="Validate">
+<var>${Sheet}</var>
+<arg>${std}</arg>
+<arg>${Mastered}[0][0]</arg>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${WorkBook}</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:30.502" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C925B20&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.170" endtime="20221220 12:36:30.503"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:30.542" level="INFO">Created table: Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=608)</msg>
+<msg timestamp="20221220 12:36:30.543" level="INFO">${data} = Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=608)</msg>
+<status status="PASS" starttime="20221220 12:36:30.503" endtime="20221220 12:36:30.543"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:30.545" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C925B20&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.544" endtime="20221220 12:36:30.545"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>A</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:30.545" endtime="20221220 12:36:30.546"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>B</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:30.546" endtime="20221220 12:36:30.547"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:30.548" level="INFO">${headers} = ['VID_1', 'VID_2', 'VID_3', 'VID_4', 'VID_6', 'VID_7', 'VID_8', 'VID_9', 'VID_10', 'VID_11', 'VID_12', 'VID_13', 'VID_15', 'VID_16', 'VID_17', 'VID_24', 'VID_28', 'VID_29', 'VID_30', 'VID_31', 'VID_32...</msg>
+<status status="PASS" starttime="20221220 12:36:30.547" endtime="20221220 12:36:30.548"/>
+</kw>
+<kw name="Get File Stem" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${WorkBook}</arg>
+<doc>Returns the name of the file without its extension.</doc>
+<msg timestamp="20221220 12:36:30.549" level="INFO">${Mastered} = 078_Minion_DOE</msg>
+<status status="PASS" starttime="20221220 12:36:30.548" endtime="20221220 12:36:30.549"/>
+</kw>
+<for flavor="IN">
+<var>${col}</var>
+<value>@{headers}</value>
+<iter>
+<var name="${col}">VID_1</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.549" endtime="20221220 12:36:30.550"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.549" endtime="20221220 12:36:30.550"/>
+</iter>
+<iter>
+<var name="${col}">VID_2</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.550" endtime="20221220 12:36:30.551"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.550" endtime="20221220 12:36:30.551"/>
+</iter>
+<iter>
+<var name="${col}">VID_3</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.552" endtime="20221220 12:36:30.552"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.552" endtime="20221220 12:36:30.552"/>
+</iter>
+<iter>
+<var name="${col}">VID_4</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.553" endtime="20221220 12:36:30.553"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.552" endtime="20221220 12:36:30.553"/>
+</iter>
+<iter>
+<var name="${col}">VID_6</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.554" endtime="20221220 12:36:30.554"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.553" endtime="20221220 12:36:30.554"/>
+</iter>
+<iter>
+<var name="${col}">VID_7</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.555" endtime="20221220 12:36:30.555"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.554" endtime="20221220 12:36:30.555"/>
+</iter>
+<iter>
+<var name="${col}">VID_8</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.555" endtime="20221220 12:36:30.556"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.555" endtime="20221220 12:36:30.556"/>
+</iter>
+<iter>
+<var name="${col}">VID_9</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.556" endtime="20221220 12:36:30.556"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.556" endtime="20221220 12:36:30.557"/>
+</iter>
+<iter>
+<var name="${col}">VID_10</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.558" endtime="20221220 12:36:30.558"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.557" endtime="20221220 12:36:30.558"/>
+</iter>
+<iter>
+<var name="${col}">VID_11</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.559" endtime="20221220 12:36:30.559"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.558" endtime="20221220 12:36:30.559"/>
+</iter>
+<iter>
+<var name="${col}">VID_12</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.560" endtime="20221220 12:36:30.560"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.559" endtime="20221220 12:36:30.560"/>
+</iter>
+<iter>
+<var name="${col}">VID_13</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.561" endtime="20221220 12:36:30.561"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.560" endtime="20221220 12:36:30.561"/>
+</iter>
+<iter>
+<var name="${col}">VID_15</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.562" endtime="20221220 12:36:30.562"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.562" endtime="20221220 12:36:30.562"/>
+</iter>
+<iter>
+<var name="${col}">VID_16</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.563" endtime="20221220 12:36:30.563"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.563" endtime="20221220 12:36:30.563"/>
+</iter>
+<iter>
+<var name="${col}">VID_17</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.564" endtime="20221220 12:36:30.565"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.564" endtime="20221220 12:36:30.565"/>
+</iter>
+<iter>
+<var name="${col}">VID_24</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.565" endtime="20221220 12:36:30.565"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.565" endtime="20221220 12:36:30.566"/>
+</iter>
+<iter>
+<var name="${col}">VID_28</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.566" endtime="20221220 12:36:30.566"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.566" endtime="20221220 12:36:30.566"/>
+</iter>
+<iter>
+<var name="${col}">VID_29</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.567" endtime="20221220 12:36:30.567"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.567" endtime="20221220 12:36:30.568"/>
+</iter>
+<iter>
+<var name="${col}">VID_30</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.568" endtime="20221220 12:36:30.568"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.568" endtime="20221220 12:36:30.568"/>
+</iter>
+<iter>
+<var name="${col}">VID_31</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.569" endtime="20221220 12:36:30.569"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.569" endtime="20221220 12:36:30.569"/>
+</iter>
+<iter>
+<var name="${col}">VID_32</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.570" endtime="20221220 12:36:30.570"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.570" endtime="20221220 12:36:30.570"/>
+</iter>
+<iter>
+<var name="${col}">VID_33</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.571" endtime="20221220 12:36:30.571"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.570" endtime="20221220 12:36:30.571"/>
+</iter>
+<iter>
+<var name="${col}">VID_34</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.572" endtime="20221220 12:36:30.572"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.571" endtime="20221220 12:36:30.572"/>
+</iter>
+<iter>
+<var name="${col}">VID_35</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.572" endtime="20221220 12:36:30.573"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.572" endtime="20221220 12:36:30.573"/>
+</iter>
+<iter>
+<var name="${col}">VID_36</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.574" endtime="20221220 12:36:30.575"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.574" endtime="20221220 12:36:30.575"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:30.549" endtime="20221220 12:36:30.575"/>
+</for>
+<return>
+<value>${Mastered}</value>
+<status status="PASS" starttime="20221220 12:36:30.575" endtime="20221220 12:36:30.575"/>
+</return>
+<msg timestamp="20221220 12:36:30.576" level="INFO">${Sheet} = 078_Minion_DOE</msg>
+<status status="PASS" starttime="20221220 12:36:30.169" endtime="20221220 12:36:30.576"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${Sheets}</arg>
+<arg>${Sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:30.576" endtime="20221220 12:36:30.576"/>
+</kw>
+<kw name="Find Files" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${inputFileFolderPath}/${std}/*Matched*.xlsx</arg>
+<doc>Find files recursively according to a pattern.</doc>
+<msg timestamp="20221220 12:36:30.580" level="INFO">${Mastered} = [File(path='D:\\RoboCorp Task\\Input Folder\\BXU123_1\\Matched_DOE.xlsx', name='Matched_DOE.xlsx', size=9178, mtime=1671090631.5026553)]</msg>
+<status status="PASS" starttime="20221220 12:36:30.576" endtime="20221220 12:36:30.581"/>
+</kw>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${Mastered}[0][0]</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:30.608" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C32EF70&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.581" endtime="20221220 12:36:30.608"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:30.609" level="INFO">Created table: Table(columns=['A', 'B'], rows=2)</msg>
+<msg timestamp="20221220 12:36:30.609" level="INFO">${data} = Table(columns=['A', 'B'], rows=2)</msg>
+<status status="PASS" starttime="20221220 12:36:30.608" endtime="20221220 12:36:30.610"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:30.610" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C32EF70&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.610" endtime="20221220 12:36:30.610"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:30.611" level="INFO">${headers} = ['Matched DOE #', 'Trail Combinatons']</msg>
+<status status="PASS" starttime="20221220 12:36:30.610" endtime="20221220 12:36:30.611"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${headers}[0]</arg>
+<arg>Matched DOE #</arg>
+<arg>Column A is invalid in ${Mastered}[0][0] file</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20221220 12:36:30.611" endtime="20221220 12:36:30.612"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${headers}[1]</arg>
+<arg>Trail Combinatons</arg>
+<arg>Column B is invalid in ${Mastered}[0][0] file</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20221220 12:36:30.612" endtime="20221220 12:36:30.612"/>
+</kw>
+<for flavor="IN">
+<var>${sheet}</var>
+<value>@{Sheets}</value>
+<iter>
+<var name="${sheet}">078_Mastered_Centered</var>
+<kw name="Append To List" library="Collections">
+<arg>${Sheet-List}</arg>
+<arg>${sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:30.613" endtime="20221220 12:36:30.613"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.613" endtime="20221220 12:36:30.613"/>
+</iter>
+<iter>
+<var name="${sheet}">078_Minion_DOE</var>
+<kw name="Append To List" library="Collections">
+<arg>${Sheet-List}</arg>
+<arg>${sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:30.614" endtime="20221220 12:36:30.614"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.614" endtime="20221220 12:36:30.614"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:30.612" endtime="20221220 12:36:30.614"/>
+</for>
+<kw name="Set Variable" library="BuiltIn">
+<var>${stdNumber}</var>
+<arg>${std}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20221220 12:36:30.615" level="INFO">${stdNumber} = BXU123_1</msg>
+<status status="PASS" starttime="20221220 12:36:30.615" endtime="20221220 12:36:30.615"/>
+</kw>
+<return>
+<value>${Sheets}</value>
+<value>${Mastered}[0][0]</value>
+<status status="PASS" starttime="20221220 12:36:30.616" endtime="20221220 12:36:30.616"/>
+</return>
+<msg timestamp="20221220 12:36:30.616" level="INFO">${sheetList} = [['078_Mastered_Centered', '078_Minion_DOE'], 'D:\\RoboCorp Task\\Input Folder\\BXU123_1\\Matched_DOE.xlsx']</msg>
+<status status="PASS" starttime="20221220 12:36:29.759" endtime="20221220 12:36:30.616"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${sheetList}[0]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20221220 12:36:30.616" endtime="20221220 12:36:30.618"/>
+</kw>
+<kw name="Create File">
+<arg>${FILE}</arg>
+<arg>${sheetList}[0][0]</arg>
+<kw name="Create Workbook" library="RPA.Excel.Files">
+<arg>sheet_name=${workSheet}</arg>
+<doc>Create and open a new Excel workbook.</doc>
+<status status="PASS" starttime="20221220 12:36:30.618" endtime="20221220 12:36:30.620"/>
+</kw>
+<kw name="Save Workbook" library="RPA.Excel.Files">
+<arg>${File-Name}</arg>
+<doc>Save the active workbook.</doc>
+<msg timestamp="20221220 12:36:30.623" level="FAIL">PermissionError: [Errno 13] Permission denied: 'Study#.xlsx'</msg>
+<status status="FAIL" starttime="20221220 12:36:30.620" endtime="20221220 12:36:30.633"/>
+</kw>
+<status status="FAIL" starttime="20221220 12:36:30.618" endtime="20221220 12:36:30.633"/>
+</kw>
+<kw name="Getting Master and Minion Sheets data into Study File">
+<arg>${sheetList}[0]</arg>
+<arg>${inputFileFolderPath}</arg>
+<arg>${studyNumber}</arg>
+<status status="NOT RUN" starttime="20221220 12:36:30.634" endtime="20221220 12:36:30.634"/>
+</kw>
+<kw name="Create VID_Compare Sheet and Compare Columns">
+<arg>${VID_Compare}</arg>
+<arg>${sheetList}[0]</arg>
+<status status="NOT RUN" starttime="20221220 12:36:30.634" endtime="20221220 12:36:30.635"/>
+</kw>
+<kw name="Read Matched_DOE File ${sheetList}[1]" sourcename="Read Matched_DOE File ${FileName}">
+<var>${Matched_Data}</var>
+<status status="NOT RUN" starttime="20221220 12:36:30.635" endtime="20221220 12:36:30.636"/>
+</kw>
+<kw name="Create Avg and Stdev Sheets ${Matched_Data}" sourcename="Create Avg and Stdev Sheets ${Matched_DOE}">
+<status status="NOT RUN" starttime="20221220 12:36:30.636" endtime="20221220 12:36:30.636"/>
+</kw>
+<kw name="Create Matched_Sheets ${Matched_Data}" sourcename="Create Matched_Sheets ${Matched_DOE}">
+<status status="NOT RUN" starttime="20221220 12:36:30.636" endtime="20221220 12:36:30.637"/>
+</kw>
+<status status="FAIL" starttime="20221220 12:36:29.758" endtime="20221220 12:36:30.637"/>
+</branch>
+<branch type="EXCEPT" variable="${exception}">
+<kw name="Append To List" library="Collections">
+<arg>${ExceptionList}</arg>
+<arg>${exception}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:30.637" endtime="20221220 12:36:30.638"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.637" endtime="20221220 12:36:30.638"/>
+</branch>
+<status status="PASS" starttime="20221220 12:36:29.758" endtime="20221220 12:36:30.639"/>
+</try>
+<status status="PASS" starttime="20221220 12:36:29.758" endtime="20221220 12:36:30.639"/>
+</iter>
+<iter>
+<var name="${studyNumber}">BXU123</var>
+<try>
+<branch type="TRY">
+<kw name="Check Input Files in Input Folder">
+<var>${sheetList}</var>
+<arg>${studyNumber}</arg>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}</arg>
+<arg>Business Exception : Study Number: ${std}: Folder not found</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:30.641" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123"&gt;D:\RoboCorp Task\Input Folder\BXU123&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:30.640" endtime="20221220 12:36:30.641"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}/*Matched*.xlsx</arg>
+<arg>Business Exception : Study Number: ${std} : Matched_DOE.xlsx File is not Exist</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:30.643" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123\*Matched*.xlsx"&gt;D:\RoboCorp Task\Input Folder\BXU123\*Matched*.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:30.641" endtime="20221220 12:36:30.643"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}/*Mastered_Centered*.xlsx</arg>
+<arg>Business Exception : Study Number: ${std} :Mastered_Centered.xlsx File is not Exist</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:30.644" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123\*Mastered_Centered*.xlsx"&gt;D:\RoboCorp Task\Input Folder\BXU123\*Mastered_Centered*.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:30.643" endtime="20221220 12:36:30.645"/>
+</kw>
+<kw name="Should Exist" library="OperatingSystem">
+<arg>${inputFileFolderPath}/${std}/*Minion_DOE*.xlsx</arg>
+<arg>Business Exception : Study Number: ${std} : Minion_DOE.xlsx File is not Exist</arg>
+<doc>Fails unless the given path (file or directory) exists.</doc>
+<msg timestamp="20221220 12:36:30.646" level="INFO" html="true">Path '&lt;a href="file://D:\RoboCorp Task\Input Folder\BXU123\*Minion_DOE*.xlsx"&gt;D:\RoboCorp Task\Input Folder\BXU123\*Minion_DOE*.xlsx&lt;/a&gt;' exists.</msg>
+<status status="PASS" starttime="20221220 12:36:30.645" endtime="20221220 12:36:30.646"/>
+</kw>
+<kw name="Create List" library="BuiltIn">
+<var>@{Sheets}</var>
+<doc>Returns a list containing given items.</doc>
+<msg timestamp="20221220 12:36:30.647" level="INFO">@{Sheets} = [ ]</msg>
+<status status="PASS" starttime="20221220 12:36:30.647" endtime="20221220 12:36:30.647"/>
+</kw>
+<kw name="Find Files" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${inputFileFolderPath}/${std}/*Mastered_Centered*.xlsx</arg>
+<doc>Find files recursively according to a pattern.</doc>
+<msg timestamp="20221220 12:36:30.650" level="INFO">${Mastered} = [File(path='D:\\RoboCorp Task\\Input Folder\\BXU123\\078_Mastered_Centered.xlsx', name='078_Mastered_Centered.xlsx', size=162430, mtime=1671090611.5552435)]</msg>
+<status status="PASS" starttime="20221220 12:36:30.647" endtime="20221220 12:36:30.651"/>
+</kw>
+<kw name="Validate">
+<var>${Sheet}</var>
+<arg>${std}</arg>
+<arg>${Mastered}[0][0]</arg>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${WorkBook}</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:30.654" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C968940&gt;</msg>
+<msg timestamp="20221220 12:36:30.911" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C6E3430&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.653" endtime="20221220 12:36:30.911"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:30.953" level="INFO">Created table: Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=638)</msg>
+<msg timestamp="20221220 12:36:30.954" level="INFO">${data} = Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=638)</msg>
+<status status="PASS" starttime="20221220 12:36:30.911" endtime="20221220 12:36:30.954"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:30.955" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C6E3430&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.954" endtime="20221220 12:36:30.955"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>A</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:30.955" endtime="20221220 12:36:30.956"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>B</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:30.956" endtime="20221220 12:36:30.957"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:30.958" level="INFO">${headers} = ['VID_1', 'VID_2', 'VID_3', 'VID_4', 'VID_6', 'VID_7', 'VID_8', 'VID_9', 'VID_10', 'VID_11', 'VID_12', 'VID_13', 'VID_15', 'VID_16', 'VID_17', 'VID_24', 'VID_28', 'VID_29', 'VID_30', 'VID_31', 'VID_32...</msg>
+<status status="PASS" starttime="20221220 12:36:30.957" endtime="20221220 12:36:30.958"/>
+</kw>
+<kw name="Get File Stem" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${WorkBook}</arg>
+<doc>Returns the name of the file without its extension.</doc>
+<msg timestamp="20221220 12:36:30.959" level="INFO">${Mastered} = 078_Mastered_Centered</msg>
+<status status="PASS" starttime="20221220 12:36:30.958" endtime="20221220 12:36:30.959"/>
+</kw>
+<for flavor="IN">
+<var>${col}</var>
+<value>@{headers}</value>
+<iter>
+<var name="${col}">VID_1</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.959" endtime="20221220 12:36:30.960"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.959" endtime="20221220 12:36:30.960"/>
+</iter>
+<iter>
+<var name="${col}">VID_2</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.960" endtime="20221220 12:36:30.961"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.960" endtime="20221220 12:36:30.961"/>
+</iter>
+<iter>
+<var name="${col}">VID_3</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.962" endtime="20221220 12:36:30.962"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.961" endtime="20221220 12:36:30.962"/>
+</iter>
+<iter>
+<var name="${col}">VID_4</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.963" endtime="20221220 12:36:30.964"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.963" endtime="20221220 12:36:30.964"/>
+</iter>
+<iter>
+<var name="${col}">VID_6</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.964" endtime="20221220 12:36:30.965"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.964" endtime="20221220 12:36:30.965"/>
+</iter>
+<iter>
+<var name="${col}">VID_7</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.965" endtime="20221220 12:36:30.966"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.965" endtime="20221220 12:36:30.966"/>
+</iter>
+<iter>
+<var name="${col}">VID_8</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.966" endtime="20221220 12:36:30.967"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.966" endtime="20221220 12:36:30.967"/>
+</iter>
+<iter>
+<var name="${col}">VID_9</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.967" endtime="20221220 12:36:30.968"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.967" endtime="20221220 12:36:30.968"/>
+</iter>
+<iter>
+<var name="${col}">VID_10</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.969" endtime="20221220 12:36:30.969"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.968" endtime="20221220 12:36:30.969"/>
+</iter>
+<iter>
+<var name="${col}">VID_11</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.969" endtime="20221220 12:36:30.970"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.969" endtime="20221220 12:36:30.970"/>
+</iter>
+<iter>
+<var name="${col}">VID_12</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.970" endtime="20221220 12:36:30.971"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.970" endtime="20221220 12:36:30.971"/>
+</iter>
+<iter>
+<var name="${col}">VID_13</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.971" endtime="20221220 12:36:30.972"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.971" endtime="20221220 12:36:30.972"/>
+</iter>
+<iter>
+<var name="${col}">VID_15</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.973" endtime="20221220 12:36:30.973"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.972" endtime="20221220 12:36:30.973"/>
+</iter>
+<iter>
+<var name="${col}">VID_16</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.974" endtime="20221220 12:36:30.974"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.973" endtime="20221220 12:36:30.974"/>
+</iter>
+<iter>
+<var name="${col}">VID_17</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.975" endtime="20221220 12:36:30.976"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.975" endtime="20221220 12:36:30.976"/>
+</iter>
+<iter>
+<var name="${col}">VID_24</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.976" endtime="20221220 12:36:30.977"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.976" endtime="20221220 12:36:30.977"/>
+</iter>
+<iter>
+<var name="${col}">VID_28</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.977" endtime="20221220 12:36:30.978"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.977" endtime="20221220 12:36:30.978"/>
+</iter>
+<iter>
+<var name="${col}">VID_29</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.978" endtime="20221220 12:36:30.979"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.978" endtime="20221220 12:36:30.979"/>
+</iter>
+<iter>
+<var name="${col}">VID_30</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.979" endtime="20221220 12:36:30.980"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.979" endtime="20221220 12:36:30.980"/>
+</iter>
+<iter>
+<var name="${col}">VID_31</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.980" endtime="20221220 12:36:30.981"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.980" endtime="20221220 12:36:30.981"/>
+</iter>
+<iter>
+<var name="${col}">VID_32</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.981" endtime="20221220 12:36:30.982"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.981" endtime="20221220 12:36:30.982"/>
+</iter>
+<iter>
+<var name="${col}">VID_33</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.982" endtime="20221220 12:36:30.983"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.982" endtime="20221220 12:36:30.983"/>
+</iter>
+<iter>
+<var name="${col}">VID_34</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.983" endtime="20221220 12:36:30.984"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.983" endtime="20221220 12:36:30.984"/>
+</iter>
+<iter>
+<var name="${col}">VID_35</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.984" endtime="20221220 12:36:30.985"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.984" endtime="20221220 12:36:30.985"/>
+</iter>
+<iter>
+<var name="${col}">VID_36</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:30.985" endtime="20221220 12:36:30.986"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:30.985" endtime="20221220 12:36:30.986"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:30.959" endtime="20221220 12:36:30.986"/>
+</for>
+<return>
+<value>${Mastered}</value>
+<status status="PASS" starttime="20221220 12:36:30.986" endtime="20221220 12:36:30.987"/>
+</return>
+<msg timestamp="20221220 12:36:30.987" level="INFO">${Sheet} = 078_Mastered_Centered</msg>
+<status status="PASS" starttime="20221220 12:36:30.651" endtime="20221220 12:36:30.987"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${Sheets}</arg>
+<arg>${Sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:30.987" endtime="20221220 12:36:30.988"/>
+</kw>
+<kw name="Find Files" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${inputFileFolderPath}/${std}/*Minion_DOE*.xlsx</arg>
+<doc>Find files recursively according to a pattern.</doc>
+<msg timestamp="20221220 12:36:30.990" level="INFO">${Mastered} = [File(path='D:\\RoboCorp Task\\Input Folder\\BXU123\\078_Minion_DOE.xlsx', name='078_Minion_DOE.xlsx', size=149332, mtime=1671090621.3975048)]</msg>
+<status status="PASS" starttime="20221220 12:36:30.988" endtime="20221220 12:36:30.990"/>
+</kw>
+<kw name="Validate">
+<var>${Sheet}</var>
+<arg>${std}</arg>
+<arg>${Mastered}[0][0]</arg>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${WorkBook}</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:31.302" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0CF86A00&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:30.991" endtime="20221220 12:36:31.303"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:31.341" level="INFO">Created table: Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=608)</msg>
+<msg timestamp="20221220 12:36:31.342" level="INFO">${data} = Table(columns=['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'AA'], rows=608)</msg>
+<status status="PASS" starttime="20221220 12:36:31.303" endtime="20221220 12:36:31.342"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:31.343" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0CF86A00&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.343" endtime="20221220 12:36:31.343"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>A</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:31.343" endtime="20221220 12:36:31.344"/>
+</kw>
+<kw name="Pop Table Column" library="RPA.Tables">
+<arg>${data}</arg>
+<arg>B</arg>
+<doc>Remove column from table and return it.</doc>
+<status status="PASS" starttime="20221220 12:36:31.345" endtime="20221220 12:36:31.346"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:31.346" level="INFO">${headers} = ['VID_1', 'VID_2', 'VID_3', 'VID_4', 'VID_6', 'VID_7', 'VID_8', 'VID_9', 'VID_10', 'VID_11', 'VID_12', 'VID_13', 'VID_15', 'VID_16', 'VID_17', 'VID_24', 'VID_28', 'VID_29', 'VID_30', 'VID_31', 'VID_32...</msg>
+<status status="PASS" starttime="20221220 12:36:31.346" endtime="20221220 12:36:31.347"/>
+</kw>
+<kw name="Get File Stem" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${WorkBook}</arg>
+<doc>Returns the name of the file without its extension.</doc>
+<msg timestamp="20221220 12:36:31.347" level="INFO">${Mastered} = 078_Minion_DOE</msg>
+<status status="PASS" starttime="20221220 12:36:31.347" endtime="20221220 12:36:31.347"/>
+</kw>
+<for flavor="IN">
+<var>${col}</var>
+<value>@{headers}</value>
+<iter>
+<var name="${col}">VID_1</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.348" endtime="20221220 12:36:31.349"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.348" endtime="20221220 12:36:31.349"/>
+</iter>
+<iter>
+<var name="${col}">VID_2</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.350" endtime="20221220 12:36:31.351"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.349" endtime="20221220 12:36:31.351"/>
+</iter>
+<iter>
+<var name="${col}">VID_3</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.351" endtime="20221220 12:36:31.353"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.351" endtime="20221220 12:36:31.353"/>
+</iter>
+<iter>
+<var name="${col}">VID_4</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.354" endtime="20221220 12:36:31.354"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.353" endtime="20221220 12:36:31.354"/>
+</iter>
+<iter>
+<var name="${col}">VID_6</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.355" endtime="20221220 12:36:31.355"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.354" endtime="20221220 12:36:31.355"/>
+</iter>
+<iter>
+<var name="${col}">VID_7</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.356" endtime="20221220 12:36:31.356"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.356" endtime="20221220 12:36:31.356"/>
+</iter>
+<iter>
+<var name="${col}">VID_8</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.357" endtime="20221220 12:36:31.357"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.357" endtime="20221220 12:36:31.357"/>
+</iter>
+<iter>
+<var name="${col}">VID_9</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.358" endtime="20221220 12:36:31.358"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.358" endtime="20221220 12:36:31.358"/>
+</iter>
+<iter>
+<var name="${col}">VID_10</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.359" endtime="20221220 12:36:31.359"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.359" endtime="20221220 12:36:31.359"/>
+</iter>
+<iter>
+<var name="${col}">VID_11</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.360" endtime="20221220 12:36:31.360"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.360" endtime="20221220 12:36:31.360"/>
+</iter>
+<iter>
+<var name="${col}">VID_12</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.361" endtime="20221220 12:36:31.361"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.361" endtime="20221220 12:36:31.361"/>
+</iter>
+<iter>
+<var name="${col}">VID_13</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.362" endtime="20221220 12:36:31.362"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.362" endtime="20221220 12:36:31.362"/>
+</iter>
+<iter>
+<var name="${col}">VID_15</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.363" endtime="20221220 12:36:31.363"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.363" endtime="20221220 12:36:31.363"/>
+</iter>
+<iter>
+<var name="${col}">VID_16</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.364" endtime="20221220 12:36:31.364"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.363" endtime="20221220 12:36:31.364"/>
+</iter>
+<iter>
+<var name="${col}">VID_17</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.365" endtime="20221220 12:36:31.366"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.364" endtime="20221220 12:36:31.366"/>
+</iter>
+<iter>
+<var name="${col}">VID_24</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.366" endtime="20221220 12:36:31.367"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.366" endtime="20221220 12:36:31.367"/>
+</iter>
+<iter>
+<var name="${col}">VID_28</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.367" endtime="20221220 12:36:31.368"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.367" endtime="20221220 12:36:31.368"/>
+</iter>
+<iter>
+<var name="${col}">VID_29</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.369" endtime="20221220 12:36:31.369"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.369" endtime="20221220 12:36:31.369"/>
+</iter>
+<iter>
+<var name="${col}">VID_30</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.370" endtime="20221220 12:36:31.370"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.370" endtime="20221220 12:36:31.371"/>
+</iter>
+<iter>
+<var name="${col}">VID_31</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.371" endtime="20221220 12:36:31.372"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.371" endtime="20221220 12:36:31.372"/>
+</iter>
+<iter>
+<var name="${col}">VID_32</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.372" endtime="20221220 12:36:31.373"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.372" endtime="20221220 12:36:31.373"/>
+</iter>
+<iter>
+<var name="${col}">VID_33</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.373" endtime="20221220 12:36:31.374"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.373" endtime="20221220 12:36:31.374"/>
+</iter>
+<iter>
+<var name="${col}">VID_34</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.374" endtime="20221220 12:36:31.375"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.374" endtime="20221220 12:36:31.375"/>
+</iter>
+<iter>
+<var name="${col}">VID_35</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.375" endtime="20221220 12:36:31.376"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.375" endtime="20221220 12:36:31.376"/>
+</iter>
+<iter>
+<var name="${col}">VID_36</var>
+<kw name="Should Contain" library="BuiltIn">
+<arg>${col}</arg>
+<arg>VID_</arg>
+<arg>Business Exception : Study Number : ${studyNum} - ${Mastered} file has invalid column</arg>
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<status status="PASS" starttime="20221220 12:36:31.376" endtime="20221220 12:36:31.377"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.376" endtime="20221220 12:36:31.377"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:31.348" endtime="20221220 12:36:31.377"/>
+</for>
+<return>
+<value>${Mastered}</value>
+<status status="PASS" starttime="20221220 12:36:31.377" endtime="20221220 12:36:31.377"/>
+</return>
+<msg timestamp="20221220 12:36:31.377" level="INFO">${Sheet} = 078_Minion_DOE</msg>
+<status status="PASS" starttime="20221220 12:36:30.990" endtime="20221220 12:36:31.377"/>
+</kw>
+<kw name="Append To List" library="Collections">
+<arg>${Sheets}</arg>
+<arg>${Sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:31.378" endtime="20221220 12:36:31.378"/>
+</kw>
+<kw name="Find Files" library="RPA.FileSystem">
+<var>${Mastered}</var>
+<arg>${inputFileFolderPath}/${std}/*Matched*.xlsx</arg>
+<doc>Find files recursively according to a pattern.</doc>
+<msg timestamp="20221220 12:36:31.381" level="INFO">${Mastered} = [File(path='D:\\RoboCorp Task\\Input Folder\\BXU123\\Matched_DOE.xlsx', name='Matched_DOE.xlsx', size=9414, mtime=1671104666.0834136)]</msg>
+<status status="PASS" starttime="20221220 12:36:31.378" endtime="20221220 12:36:31.381"/>
+</kw>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${Mastered}[0][0]</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:31.403" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0CFD2CA0&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.382" endtime="20221220 12:36:31.404"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${data}</var>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221220 12:36:31.404" level="INFO">Created table: Table(columns=['A', 'B'], rows=2)</msg>
+<msg timestamp="20221220 12:36:31.405" level="INFO">${data} = Table(columns=['A', 'B'], rows=2)</msg>
+<status status="PASS" starttime="20221220 12:36:31.404" endtime="20221220 12:36:31.405"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:31.405" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0CFD2CA0&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.405" endtime="20221220 12:36:31.405"/>
+</kw>
+<kw name="Get Table Row" library="RPA.Tables">
+<var>${headers}</var>
+<arg>${data}</arg>
+<arg>0</arg>
+<arg>True</arg>
+<doc>Get a single row from a table.</doc>
+<msg timestamp="20221220 12:36:31.406" level="INFO">${headers} = ['Matched DOE #', 'Trail Combinatons']</msg>
+<status status="PASS" starttime="20221220 12:36:31.406" endtime="20221220 12:36:31.406"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${headers}[0]</arg>
+<arg>Matched DOE #</arg>
+<arg>Column A is invalid in ${Mastered}[0][0] file</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20221220 12:36:31.406" endtime="20221220 12:36:31.407"/>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<arg>${headers}[1]</arg>
+<arg>Trail Combinatons</arg>
+<arg>Column B is invalid in ${Mastered}[0][0] file</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" starttime="20221220 12:36:31.407" endtime="20221220 12:36:31.407"/>
+</kw>
+<for flavor="IN">
+<var>${sheet}</var>
+<value>@{Sheets}</value>
+<iter>
+<var name="${sheet}">078_Mastered_Centered</var>
+<kw name="Append To List" library="Collections">
+<arg>${Sheet-List}</arg>
+<arg>${sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:31.408" endtime="20221220 12:36:31.409"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.408" endtime="20221220 12:36:31.409"/>
+</iter>
+<iter>
+<var name="${sheet}">078_Minion_DOE</var>
+<kw name="Append To List" library="Collections">
+<arg>${Sheet-List}</arg>
+<arg>${sheet}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:31.409" endtime="20221220 12:36:31.409"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.409" endtime="20221220 12:36:31.410"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:31.408" endtime="20221220 12:36:31.410"/>
+</for>
+<kw name="Set Variable" library="BuiltIn">
+<var>${stdNumber}</var>
+<arg>${std}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20221220 12:36:31.410" level="INFO">${stdNumber} = BXU123</msg>
+<status status="PASS" starttime="20221220 12:36:31.410" endtime="20221220 12:36:31.410"/>
+</kw>
+<return>
+<value>${Sheets}</value>
+<value>${Mastered}[0][0]</value>
+<status status="PASS" starttime="20221220 12:36:31.410" endtime="20221220 12:36:31.411"/>
+</return>
+<msg timestamp="20221220 12:36:31.411" level="INFO">${sheetList} = [['078_Mastered_Centered', '078_Minion_DOE'], 'D:\\RoboCorp Task\\Input Folder\\BXU123\\Matched_DOE.xlsx']</msg>
+<status status="PASS" starttime="20221220 12:36:30.640" endtime="20221220 12:36:31.411"/>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${sheetList}[0]</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20221220 12:36:31.411" endtime="20221220 12:36:31.413"/>
+</kw>
+<kw name="Create File">
+<arg>${FILE}</arg>
+<arg>${sheetList}[0][0]</arg>
+<kw name="Create Workbook" library="RPA.Excel.Files">
+<arg>sheet_name=${workSheet}</arg>
+<doc>Create and open a new Excel workbook.</doc>
+<status status="PASS" starttime="20221220 12:36:31.414" endtime="20221220 12:36:31.416"/>
+</kw>
+<kw name="Save Workbook" library="RPA.Excel.Files">
+<arg>${File-Name}</arg>
+<doc>Save the active workbook.</doc>
+<msg timestamp="20221220 12:36:31.420" level="FAIL">PermissionError: [Errno 13] Permission denied: 'Study#.xlsx'</msg>
+<status status="FAIL" starttime="20221220 12:36:31.417" endtime="20221220 12:36:31.421"/>
+</kw>
+<status status="FAIL" starttime="20221220 12:36:31.413" endtime="20221220 12:36:31.423"/>
+</kw>
+<kw name="Getting Master and Minion Sheets data into Study File">
+<arg>${sheetList}[0]</arg>
+<arg>${inputFileFolderPath}</arg>
+<arg>${studyNumber}</arg>
+<status status="NOT RUN" starttime="20221220 12:36:31.423" endtime="20221220 12:36:31.424"/>
+</kw>
+<kw name="Create VID_Compare Sheet and Compare Columns">
+<arg>${VID_Compare}</arg>
+<arg>${sheetList}[0]</arg>
+<status status="NOT RUN" starttime="20221220 12:36:31.424" endtime="20221220 12:36:31.424"/>
+</kw>
+<kw name="Read Matched_DOE File ${sheetList}[1]" sourcename="Read Matched_DOE File ${FileName}">
+<var>${Matched_Data}</var>
+<status status="NOT RUN" starttime="20221220 12:36:31.425" endtime="20221220 12:36:31.425"/>
+</kw>
+<kw name="Create Avg and Stdev Sheets ${Matched_Data}" sourcename="Create Avg and Stdev Sheets ${Matched_DOE}">
+<status status="NOT RUN" starttime="20221220 12:36:31.425" endtime="20221220 12:36:31.425"/>
+</kw>
+<kw name="Create Matched_Sheets ${Matched_Data}" sourcename="Create Matched_Sheets ${Matched_DOE}">
+<status status="NOT RUN" starttime="20221220 12:36:31.426" endtime="20221220 12:36:31.426"/>
+</kw>
+<status status="FAIL" starttime="20221220 12:36:30.640" endtime="20221220 12:36:31.426"/>
+</branch>
+<branch type="EXCEPT" variable="${exception}">
+<kw name="Append To List" library="Collections">
+<arg>${ExceptionList}</arg>
+<arg>${exception}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" starttime="20221220 12:36:31.426" endtime="20221220 12:36:31.427"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.426" endtime="20221220 12:36:31.427"/>
+</branch>
+<status status="PASS" starttime="20221220 12:36:30.640" endtime="20221220 12:36:31.427"/>
+</try>
+<status status="PASS" starttime="20221220 12:36:30.640" endtime="20221220 12:36:31.427"/>
+</iter>
+<status status="PASS" starttime="20221220 12:36:29.758" endtime="20221220 12:36:31.427"/>
+</for>
+<status status="PASS" starttime="20221220 12:36:29.733" endtime="20221220 12:36:31.427"/>
+</branch>
+<branch type="EXCEPT" variable="${exception}">
+<kw name="Append To List" library="Collections">
+<arg>${ExceptionList}</arg>
+<arg>${exception}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="NOT RUN" starttime="20221220 12:36:31.428" endtime="20221220 12:36:31.428"/>
+</kw>
+<status status="NOT RUN" starttime="20221220 12:36:31.428" endtime="20221220 12:36:31.428"/>
+</branch>
+<status status="PASS" starttime="20221220 12:36:29.732" endtime="20221220 12:36:31.428"/>
+</try>
+<kw name="Log To Console" library="BuiltIn">
+<arg>${ExceptionList}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" starttime="20221220 12:36:31.429" endtime="20221220 12:36:31.430"/>
+</kw>
+<kw name="Create File">
+<arg>Summary Report.xlsx</arg>
+<arg>Summary Report</arg>
+<kw name="Create Workbook" library="RPA.Excel.Files">
+<arg>sheet_name=${workSheet}</arg>
+<doc>Create and open a new Excel workbook.</doc>
+<msg timestamp="20221220 12:36:31.433" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0CFD3280&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.432" endtime="20221220 12:36:31.434"/>
+</kw>
+<kw name="Save Workbook" library="RPA.Excel.Files">
+<arg>${File-Name}</arg>
+<doc>Save the active workbook.</doc>
+<status status="PASS" starttime="20221220 12:36:31.435" endtime="20221220 12:36:31.454"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.431" endtime="20221220 12:36:31.455"/>
+</kw>
+<kw name="Paste WorkSheet Data">
+<arg>Summary Report.xlsx</arg>
+<arg>Summary Report</arg>
+<arg>${ExceptionList}</arg>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>${WorkBook}</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:31.459" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C6E9EE0&gt;</msg>
+<msg timestamp="20221220 12:36:31.473" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0B9EE850&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.458" endtime="20221220 12:36:31.474"/>
+</kw>
+<kw name="Worksheet Exists" library="RPA.Excel.Files">
+<var>${WorkSheet-Exist}</var>
+<arg>${SheetName}</arg>
+<doc>Return True if worksheet with given name is in workbook.</doc>
+<msg timestamp="20221220 12:36:31.474" level="INFO">${WorkSheet-Exist} = True</msg>
+<status status="PASS" starttime="20221220 12:36:31.474" endtime="20221220 12:36:31.474"/>
+</kw>
+<if>
+<branch type="IF" condition="${WorkSheet-Exist}">
+<kw name="Set Active Worksheet" library="RPA.Excel.Files">
+<arg>${SheetName}</arg>
+<doc>Set the active worksheet.</doc>
+<status status="PASS" starttime="20221220 12:36:31.475" endtime="20221220 12:36:31.475"/>
+</kw>
+<kw name="Append Rows To Worksheet" library="RPA.Excel.Files">
+<arg>${SheetData}</arg>
+<doc>Append values to the end of the worksheet.</doc>
+<status status="PASS" starttime="20221220 12:36:31.476" endtime="20221220 12:36:31.476"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.475" endtime="20221220 12:36:31.476"/>
+</branch>
+<branch type="ELSE">
+<kw name="Create Worksheet" library="RPA.Excel.Files">
+<arg>${SheetName}</arg>
+<arg>${SheetData}</arg>
+<doc>Create a new worksheet in the current workbook.</doc>
+<status status="NOT RUN" starttime="20221220 12:36:31.477" endtime="20221220 12:36:31.477"/>
+</kw>
+<status status="NOT RUN" starttime="20221220 12:36:31.476" endtime="20221220 12:36:31.477"/>
+</branch>
+<status status="PASS" starttime="20221220 12:36:31.475" endtime="20221220 12:36:31.477"/>
+</if>
+<kw name="Save Workbook" library="RPA.Excel.Files">
+<arg>${WorkBook}</arg>
+<doc>Save the active workbook.</doc>
+<status status="PASS" starttime="20221220 12:36:31.477" endtime="20221220 12:36:31.493"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:31.493" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0B9EE850&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.493" endtime="20221220 12:36:31.493"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:31.457" endtime="20221220 12:36:31.494"/>
+</kw>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>Summary Report.xlsx</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221220 12:36:31.510" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C747AF0&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.495" endtime="20221220 12:36:31.510"/>
+</kw>
+<kw name="Save Workbook" library="RPA.Excel.Files">
+<arg>${inputFileFolderPath}${/}${stdNumber}${/}Summary Report.xlsx</arg>
+<doc>Save the active workbook.</doc>
+<status status="PASS" starttime="20221220 12:36:31.511" endtime="20221220 12:36:31.527"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221220 12:36:31.528" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000018F0C747AF0&gt;</msg>
+<status status="PASS" starttime="20221220 12:36:31.528" endtime="20221220 12:36:31.529"/>
+</kw>
+<status status="PASS" starttime="20221220 12:36:29.731" endtime="20221220 12:36:31.529"/>
+</test>
+<doc>Template robot main suite.</doc>
+<status status="PASS" starttime="20221220 12:36:24.916" endtime="20221220 12:36:31.531"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+<msg timestamp="20221220 12:36:27.476" level="WARN">This is a deprecated import that will be removed in favor of RPA.Browser.Selenium</msg>
+</errors>
+</robot>

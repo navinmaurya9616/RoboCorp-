@@ -14,8 +14,6 @@ Library             DateTime
 Library             OperatingSystem
 Library             RPA.FileSystem
 
-
-
 *** Variables ***
 @{FileName-List}            StudySample.xlsx    StudySample.xlsx
 @{Sheet-List}
@@ -30,7 +28,6 @@ ${inputFileFolderPath}      D:/RoboCorp Task/Input Folder
 ${VID_Compare}              VID_Alignment
 ${stdNumber}
 @{ExceptionList}
-
 
 *** Tasks ***
 MVDA Steps

@@ -1,0 +1,736 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on win32)" generated="20221228 11:43:32.987" rpa="true" schemaversion="3">
+<suite id="s1" name="Tasks" source="D:\RoboCorp Task\Robocorp Challenge\Challenge 1\tasks.robot">
+<test id="s1-t1" name="Complete the challenge" line="14">
+<kw name="Start the challenge">
+<kw name="Open Available Browser" library="RPA.Browser.Selenium">
+<arg>http://rpachallenge.com/</arg>
+<doc>Attempts to open a browser on the user's device from a set of
+supported browsers. Automatically downloads a corresponding webdriver
+if none is already installed.</doc>
+<msg timestamp="20221228 11:43:36.227" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20221228 11:43:36.248" level="INFO">====== WebDriver manager ======</msg>
+<msg timestamp="20221228 11:43:38.762" level="INFO">Creating an instance of the Chrome WebDriver.</msg>
+<msg timestamp="20221228 11:43:40.480" level="INFO">Created Chrome browser with arguments: --disable-dev-shm-usage --disable-web-security --allow-running-insecure-content --no-sandbox</msg>
+<msg timestamp="20221228 11:43:40.481" level="INFO" html="true">&lt;p&gt;Attempted combinations:&lt;/p&gt;&lt;div class="doc"&gt;&lt;table&gt;&lt;tr&gt;&lt;th&gt;Browser&lt;/th&gt;&lt;th&gt;Download&lt;/th&gt;&lt;th&gt;Error&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;False&lt;/td&gt;&lt;td&gt;Message: 'chromedriver' executable needs to be in PATH. Please see https://chromedriver.chromium.org/home
+&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Chrome&lt;/td&gt;&lt;td&gt;True&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;</msg>
+<msg timestamp="20221228 11:43:40.481" level="INFO">Opening url 'http://rpachallenge.com/'</msg>
+<status status="PASS" starttime="20221228 11:43:36.226" endtime="20221228 11:43:48.753"/>
+</kw>
+<kw name="Download" library="RPA.HTTP">
+<arg>http://rpachallenge.com/assets/downloadFiles/challenge.xlsx</arg>
+<arg>overwrite=True</arg>
+<doc>An alias for the ``HTTP Get`` keyword.</doc>
+<msg timestamp="20221228 11:43:48.756" level="INFO">Creating a new HTTP session</msg>
+<msg timestamp="20221228 11:43:48.756" level="INFO">Creating Session using : alias=rpasession_alias.httprpachallenge.com, url=http://rpachallenge.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20221228 11:43:48.754" endtime="20221228 11:43:52.132"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Start</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:52.133" level="INFO">Clicking button 'Start'.</msg>
+<status status="PASS" starttime="20221228 11:43:52.132" endtime="20221228 11:43:52.236"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:36.225" endtime="20221228 11:43:52.237"/>
+</kw>
+<kw name="Fill the forms">
+<kw name="Get the list of people from the Excel file">
+<var>${people}</var>
+<kw name="Open Workbook" library="RPA.Excel.Files">
+<arg>challenge.xlsx</arg>
+<doc>Open an existing Excel workbook.</doc>
+<msg timestamp="20221228 11:43:52.487" level="INFO">Opened workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000014FD8C09520&gt;</msg>
+<status status="PASS" starttime="20221228 11:43:52.241" endtime="20221228 11:43:52.489"/>
+</kw>
+<kw name="Read Worksheet As Table" library="RPA.Excel.Files">
+<var>${table}</var>
+<arg>header=True</arg>
+<doc>Read the contents of a worksheet into a Table container. Allows
+sorting/filtering/manipulating using the ``RPA.Tables`` library.</doc>
+<msg timestamp="20221228 11:43:52.564" level="INFO">Created table: Table(columns=['First Name', 'Last Name', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number'], rows=10)</msg>
+<msg timestamp="20221228 11:43:52.565" level="INFO">${table} = Table(columns=['First Name', 'Last Name', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number'], rows=10)</msg>
+<status status="PASS" starttime="20221228 11:43:52.489" endtime="20221228 11:43:52.565"/>
+</kw>
+<kw name="Close Workbook" library="RPA.Excel.Files">
+<doc>Close the active workbook.</doc>
+<msg timestamp="20221228 11:43:52.567" level="INFO">Closing workbook: &lt;RPA.Excel.Files.XlsxWorkbook object at 0x0000014FD8C09520&gt;</msg>
+<status status="PASS" starttime="20221228 11:43:52.566" endtime="20221228 11:43:52.567"/>
+</kw>
+<return>
+<value>${table}</value>
+<status status="PASS" starttime="20221228 11:43:52.567" endtime="20221228 11:43:52.567"/>
+</return>
+<msg timestamp="20221228 11:43:52.568" level="INFO">${people} = Table(columns=['First Name', 'Last Name', 'Company Name', 'Role in Company', 'Address', 'Email', 'Phone Number'], rows=10)</msg>
+<status status="PASS" starttime="20221228 11:43:52.240" endtime="20221228 11:43:52.568"/>
+</kw>
+<for flavor="IN">
+<var>${person}</var>
+<value>@{people}</value>
+<iter>
+<var name="${person}">{'First Name': 'John', 'Last Name': 'Smith', 'Company Name': 'IT Solutions', 'Role in Company': 'Analyst', 'Address': '98 North Road', 'Email': 'jsmith@itsolutions.co.uk', 'Phone Number': 40716543298}</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:52.573" level="INFO">Typing text 'John' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:52.568" endtime="20221228 11:43:52.701"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:52.702" level="INFO">Typing text 'Smith' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:52.701" endtime="20221228 11:43:52.835"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:52.836" level="INFO">Typing text 'IT Solutions' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:52.836" endtime="20221228 11:43:52.994"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:52.995" level="INFO">Typing text 'Analyst' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:52.994" endtime="20221228 11:43:53.164"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:53.165" level="INFO">Typing text '98 North Road' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:53.164" endtime="20221228 11:43:53.334"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:53.336" level="INFO">Typing text 'jsmith@itsolutions.co.uk' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:53.335" endtime="20221228 11:43:53.561"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:53.562" level="INFO">Typing text '40716543298' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:53.561" endtime="20221228 11:43:53.721"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:53.722" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:43:53.722" endtime="20221228 11:43:53.818"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:52.568" endtime="20221228 11:43:53.819"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:52.568" endtime="20221228 11:43:53.820"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Jane', 'Last Name': 'Dorsey', 'Company Name': 'MediCare', 'Role in Company': 'Medical Engineer', 'Address': '11 Crown Street', 'Email': 'jdorsey@mc.com', 'Phone Number': 40791345621}</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:53.824" level="INFO">Typing text 'Jane' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:53.824" endtime="20221228 11:43:53.955"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:53.956" level="INFO">Typing text 'Dorsey' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:53.955" endtime="20221228 11:43:54.105"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.106" level="INFO">Typing text 'MediCare' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.106" endtime="20221228 11:43:54.255"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.257" level="INFO">Typing text 'Medical Engineer' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.255" endtime="20221228 11:43:54.422"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.423" level="INFO">Typing text '11 Crown Street' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.422" endtime="20221228 11:43:54.577"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.578" level="INFO">Typing text 'jdorsey@mc.com' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.577" endtime="20221228 11:43:54.730"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.731" level="INFO">Typing text '40791345621' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.730" endtime="20221228 11:43:54.878"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.879" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.878" endtime="20221228 11:43:54.946"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:53.823" endtime="20221228 11:43:54.947"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:53.822" endtime="20221228 11:43:54.948"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Albert', 'Last Name': 'Kipling', 'Company Name': 'Waterfront', 'Role in Company': 'Accountant', 'Address': '22 Guild Street', 'Email': 'kipling@waterfront.com', 'Phone Number': 4073541...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:54.953" level="INFO">Typing text 'Albert' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:54.951" endtime="20221228 11:43:55.099"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:55.100" level="INFO">Typing text 'Kipling' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:55.099" endtime="20221228 11:43:55.250"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:55.252" level="INFO">Typing text 'Waterfront' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:55.251" endtime="20221228 11:43:55.400"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:55.401" level="INFO">Typing text 'Accountant' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:55.401" endtime="20221228 11:43:55.554"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:55.555" level="INFO">Typing text '22 Guild Street' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:55.554" endtime="20221228 11:43:55.721"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:55.723" level="INFO">Typing text 'kipling@waterfront.com' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:55.722" endtime="20221228 11:43:55.919"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:55.921" level="INFO">Typing text '40735416854' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:55.920" endtime="20221228 11:43:56.076"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:56.077" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:43:56.076" endtime="20221228 11:43:56.148"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:54.949" endtime="20221228 11:43:56.148"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:54.949" endtime="20221228 11:43:56.149"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Michael', 'Last Name': 'Robertson', 'Company Name': 'MediCare', 'Role in Company': 'IT Specialist', 'Address': '17 Farburn Terrace', 'Email': 'mrobertson@mc.com', 'Phone Number': 40733...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:56.153" level="INFO">Typing text 'Michael' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:56.151" endtime="20221228 11:43:56.295"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:56.296" level="INFO">Typing text 'Robertson' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:56.295" endtime="20221228 11:43:56.463"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:56.464" level="INFO">Typing text 'MediCare' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:56.463" endtime="20221228 11:43:56.654"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:56.657" level="INFO">Typing text 'IT Specialist' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:56.655" endtime="20221228 11:43:56.855"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:56.857" level="INFO">Typing text '17 Farburn Terrace' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:56.856" endtime="20221228 11:43:57.064"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:57.065" level="INFO">Typing text 'mrobertson@mc.com' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:57.064" endtime="20221228 11:43:57.269"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:57.271" level="INFO">Typing text '40733652145' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:57.270" endtime="20221228 11:43:57.455"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:57.456" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:43:57.455" endtime="20221228 11:43:57.539"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:56.150" endtime="20221228 11:43:57.539"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:56.149" endtime="20221228 11:43:57.539"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Doug', 'Last Name': 'Derrick', 'Company Name': 'Timepath Inc.', 'Role in Company': 'Analyst', 'Address': '99 Shire Oak Road', 'Email': 'dderrick@timepath.co.uk', 'Phone Number': 407998...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:57.542" level="INFO">Typing text 'Doug' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:57.542" endtime="20221228 11:43:57.702"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:57.703" level="INFO">Typing text 'Derrick' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:57.702" endtime="20221228 11:43:57.890"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:57.891" level="INFO">Typing text 'Timepath Inc.' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:57.890" endtime="20221228 11:43:58.094"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:58.096" level="INFO">Typing text 'Analyst' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:58.095" endtime="20221228 11:43:58.263"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:58.265" level="INFO">Typing text '99 Shire Oak Road' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:58.263" endtime="20221228 11:43:58.481"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:58.483" level="INFO">Typing text 'dderrick@timepath.co.uk' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:58.482" endtime="20221228 11:43:58.715"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:58.719" level="INFO">Typing text '40799885412' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:58.716" endtime="20221228 11:43:58.911"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:58.912" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:43:58.911" endtime="20221228 11:43:58.995"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:57.541" endtime="20221228 11:43:58.996"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:57.541" endtime="20221228 11:43:58.996"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Jessie', 'Last Name': 'Marlowe', 'Company Name': 'Aperture Inc.', 'Role in Company': 'Scientist', 'Address': '27 Cheshire Street', 'Email': 'jmarlowe@aperture.us', 'Phone Number': 4073...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:59.000" level="INFO">Typing text 'Jessie' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:58.999" endtime="20221228 11:43:59.153"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:59.155" level="INFO">Typing text 'Marlowe' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:59.153" endtime="20221228 11:43:59.321"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:59.323" level="INFO">Typing text 'Aperture Inc.' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:59.322" endtime="20221228 11:43:59.502"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:59.504" level="INFO">Typing text 'Scientist' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:59.502" endtime="20221228 11:43:59.705"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:59.706" level="INFO">Typing text '27 Cheshire Street' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:59.705" endtime="20221228 11:43:59.905"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:43:59.907" level="INFO">Typing text 'jmarlowe@aperture.us' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:43:59.906" endtime="20221228 11:44:00.140"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:00.142" level="INFO">Typing text '40733154268' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:00.141" endtime="20221228 11:44:00.348"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:00.350" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:44:00.349" endtime="20221228 11:44:00.441"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:58.997" endtime="20221228 11:44:00.442"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:58.997" endtime="20221228 11:44:00.442"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Stan', 'Last Name': 'Hamm', 'Company Name': 'Sugarwell', 'Role in Company': 'Advisor', 'Address': '10 Dam Road', 'Email': 'shamm@sugarwell.org', 'Phone Number': 40712462257}</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:00.449" level="INFO">Typing text 'Stan' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:00.448" endtime="20221228 11:44:00.639"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:00.641" level="INFO">Typing text 'Hamm' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:00.640" endtime="20221228 11:44:00.817"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:00.819" level="INFO">Typing text 'Sugarwell' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:00.817" endtime="20221228 11:44:01.031"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:01.034" level="INFO">Typing text 'Advisor' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:01.032" endtime="20221228 11:44:01.221"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:01.224" level="INFO">Typing text '10 Dam Road' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:01.223" endtime="20221228 11:44:01.428"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:01.430" level="INFO">Typing text 'shamm@sugarwell.org' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:01.428" endtime="20221228 11:44:01.655"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:01.656" level="INFO">Typing text '40712462257' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:01.655" endtime="20221228 11:44:01.848"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:01.849" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:44:01.849" endtime="20221228 11:44:01.957"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:00.445" endtime="20221228 11:44:01.958"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:00.444" endtime="20221228 11:44:01.959"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Michelle', 'Last Name': 'Norton', 'Company Name': 'Aperture Inc.', 'Role in Company': 'Scientist', 'Address': '13 White Rabbit Street', 'Email': 'mnorton@aperture.us', 'Phone Number': ...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:01.962" level="INFO">Typing text 'Michelle' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:01.961" endtime="20221228 11:44:02.147"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:02.148" level="INFO">Typing text 'Norton' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:02.148" endtime="20221228 11:44:02.311"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:02.313" level="INFO">Typing text 'Aperture Inc.' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:02.311" endtime="20221228 11:44:02.516"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:02.517" level="INFO">Typing text 'Scientist' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:02.517" endtime="20221228 11:44:02.704"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:02.706" level="INFO">Typing text '13 White Rabbit Street' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:02.705" endtime="20221228 11:44:02.996"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:02.997" level="INFO">Typing text 'mnorton@aperture.us' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:02.996" endtime="20221228 11:44:03.229"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:03.231" level="INFO">Typing text '40731254562' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:03.229" endtime="20221228 11:44:03.447"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:03.449" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:44:03.448" endtime="20221228 11:44:03.542"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:01.960" endtime="20221228 11:44:03.543"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:01.959" endtime="20221228 11:44:03.543"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Stacy', 'Last Name': 'Shelby', 'Company Name': 'TechDev', 'Role in Company': 'HR Manager', 'Address': '19 Pineapple Boulevard', 'Email': 'sshelby@techdev.com', 'Phone Number': 40741785...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:03.548" level="INFO">Typing text 'Stacy' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:03.547" endtime="20221228 11:44:03.720"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:03.720" level="INFO">Typing text 'Shelby' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:03.720" endtime="20221228 11:44:03.900"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:03.900" level="INFO">Typing text 'TechDev' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:03.900" endtime="20221228 11:44:04.107"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:04.109" level="INFO">Typing text 'HR Manager' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:04.107" endtime="20221228 11:44:04.310"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:04.311" level="INFO">Typing text '19 Pineapple Boulevard' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:04.310" endtime="20221228 11:44:04.555"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:04.556" level="INFO">Typing text 'sshelby@techdev.com' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:04.556" endtime="20221228 11:44:04.773"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:04.775" level="INFO">Typing text '40741785214' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:04.773" endtime="20221228 11:44:04.959"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:04.960" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:44:04.960" endtime="20221228 11:44:05.062"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:03.544" endtime="20221228 11:44:05.062"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:03.543" endtime="20221228 11:44:05.063"/>
+</iter>
+<iter>
+<var name="${person}">{'First Name': 'Lara', 'Last Name': 'Palmer', 'Company Name': 'Timepath Inc.', 'Role in Company': 'Programmer', 'Address': '87 Orange Street', 'Email': 'lpalmer@timepath.co.uk', 'Phone Number': 407316...</var>
+<kw name="Fill and submit the form">
+<arg>${person}</arg>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelFirstName"]</arg>
+<arg>${person}[First Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:05.065" level="INFO">Typing text 'Lara' into text field 'css:input[ng-reflect-name="labelFirstName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:05.065" endtime="20221228 11:44:05.224"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelLastName"]</arg>
+<arg>${person}[Last Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:05.228" level="INFO">Typing text 'Palmer' into text field 'css:input[ng-reflect-name="labelLastName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:05.224" endtime="20221228 11:44:05.412"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelCompanyName"]</arg>
+<arg>${person}[Company Name]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:05.414" level="INFO">Typing text 'Timepath Inc.' into text field 'css:input[ng-reflect-name="labelCompanyName"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:05.413" endtime="20221228 11:44:05.630"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelRole"]</arg>
+<arg>${person}[Role in Company]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:05.633" level="INFO">Typing text 'Programmer' into text field 'css:input[ng-reflect-name="labelRole"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:05.631" endtime="20221228 11:44:05.844"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelAddress"]</arg>
+<arg>${person}[Address]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:05.847" level="INFO">Typing text '87 Orange Street' into text field 'css:input[ng-reflect-name="labelAddress"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:05.845" endtime="20221228 11:44:06.062"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelEmail"]</arg>
+<arg>${person}[Email]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:06.063" level="INFO">Typing text 'lpalmer@timepath.co.uk' into text field 'css:input[ng-reflect-name="labelEmail"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:06.062" endtime="20221228 11:44:06.274"/>
+</kw>
+<kw name="Input Text" library="RPA.Browser.Selenium">
+<arg>css:input[ng-reflect-name="labelPhone"]</arg>
+<arg>${person}[Phone Number]</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:06.275" level="INFO">Typing text '40731653845' into text field 'css:input[ng-reflect-name="labelPhone"]'.</msg>
+<status status="PASS" starttime="20221228 11:44:06.274" endtime="20221228 11:44:06.455"/>
+</kw>
+<kw name="Click Button" library="RPA.Browser.Selenium">
+<arg>Submit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<msg timestamp="20221228 11:44:06.456" level="INFO">Clicking button 'Submit'.</msg>
+<status status="PASS" starttime="20221228 11:44:06.455" endtime="20221228 11:44:06.602"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:05.064" endtime="20221228 11:44:06.603"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:05.063" endtime="20221228 11:44:06.603"/>
+</iter>
+<status status="PASS" starttime="20221228 11:43:52.568" endtime="20221228 11:44:06.604"/>
+</for>
+<status status="PASS" starttime="20221228 11:43:52.239" endtime="20221228 11:44:06.604"/>
+</kw>
+<kw name="Collect the results">
+<kw name="Capture Element Screenshot" library="RPA.Browser.Selenium">
+<arg>css:div.congratulations</arg>
+<doc>Captures a screenshot from the element identified by ``locator`` and embeds it into log file.</doc>
+<msg timestamp="20221228 11:44:06.849" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;img alt="screenshot" class="robot-seleniumlibrary-screenshot" src="data:image/png;base64,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" width="400px"&gt;</msg>
+<status status="PASS" starttime="20221228 11:44:06.608" endtime="20221228 11:44:06.851"/>
+</kw>
+<kw name="Close All Browsers" library="RPA.Browser.Selenium">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" starttime="20221228 11:44:06.851" endtime="20221228 11:44:09.579"/>
+</kw>
+<status status="PASS" starttime="20221228 11:44:06.606" endtime="20221228 11:44:09.580"/>
+</kw>
+<status status="PASS" starttime="20221228 11:43:36.224" endtime="20221228 11:44:09.581"/>
+</test>
+<doc>Robot to solve the first challenge at rpachallenge.com,
+which consists of filling a form that randomly rearranges
+itself for ten times, with data taken from a provided
+Microsoft Excel file.</doc>
+<status status="PASS" starttime="20221228 11:43:32.992" endtime="20221228 11:44:09.584"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Tasks">Tasks</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
